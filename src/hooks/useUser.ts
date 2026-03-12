@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, type ChangeEvent } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import type { FormData } from "../interfaces/FormData";
@@ -57,7 +57,7 @@ const useUser = () => {
     }
   };
 
-  
+
   /**
    * Muestra una alerta de éxito usando SweetAlert2.
    *
@@ -86,6 +86,23 @@ const useUser = () => {
     fetchUsers();
   }, []);
 
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    const { name, value } = e.target;
+
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+  return {
+    users,
+    userToEdit,
+    setUserToEdit,
+    loading,
+    formData,
+    setFormData,
+    handleInputChange,
+  };
 
 };
 
